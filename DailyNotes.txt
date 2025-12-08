@@ -1,0 +1,302 @@
+Python:
+=======
+
+		1989
+		feb 20th 1991
+
+	syntax
+
+java
+
+class Welcome{
+
+public static void main(String args[])
+{
+	System.out.println("welcome to java");
+}
+
+}
+2014
+
+python
+
+>>> import keyword
+>>> keyword.kwlist
+
+['False', 'None', 'True', 'and', 'as', 'assert',
+ 'async', 'await', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 
+ 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 
+ 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
+
+
+Guido van rossam
+
+
+
+
+c	functional
+c++	oop
+
+C,ABC
+
+
+Areas:
+=======
+
+1)desktop app-->core python,tkinter
+2)web app--->django,flask
+3)Ml,AI,Dl,IOT,....	numpy,pandas,matplotlib,seaborn,keras,sickit learn,tensorflow...etc
+4)networking
+5)gaming....
+
+Features:
+
+
+1)simple and easy to learn
+2)dynamic typed			int age=32(static typed)
+3)free source and open source						age=sandeep
+4)PI
+5)portable
+6)intepreted  PVM
+7)flavours  jython,cpython,rubypython
+
+3.15
+
+
+identifiers:
+
+		a-z
+		A-Z
+		0-9
+		_
+	
+Datatypes
+
+
+		int
+		float
+		str
+		boolean
+		complex     one value
+					imuttable
+					name="sandeep"
+					name="jagan"
+		Advanced DT
+		
+		List
+		Set
+		Dict
+		Frozenset
+		tuple
+		
+		
+		
+		List
+		
+		group of objects as single entity
+		
+		
+		1.duplicates are allowed
+		2.insertion order is preserved
+		3.homogeneous and heterogeneous
+		4.muttable
+		5.[]
+		6.growable in nature
+		
+		
+		
+		Tuple(imuttable version of list)
+		group of objects as single entity
+		
+		
+		1.duplicates are allowed
+		2.insertion order is preserved
+		3.homogeneous and heterogeneous
+		4.imuttable
+		5.()
+		
+		Set
+		
+		1.duplicates are not allowed
+		2.insertion order is not preserved
+		3.homogeneous and heterogeneous
+		4.muttable
+		5.{}
+		6.growable in nature
+		
+		Frozenset(fs is imuttable version set)
+		
+		1.duplicates are not allowed
+		2.insertion order is not preserved
+		3.homogeneous and heterogeneous
+		4.imuttable
+		5.({}) /frozenset
+		
+		Dict:key,value
+		
+			121  suresh
+			122  naresh 
+		
+		1.duplicates keys are not allowed
+		2.values can be duplicate
+		3.if we pass duplicate it will override the value
+		4.muttable
+		5.{()}
+		6.key and value can be any DT
+	
+PY
+	
+	oops 		class  obj
+	
+		polymorphisam:									type
+			method overloading :method name is same signature is different
+			method overriding  :method name is same implementation is different
+		
+		@abstractmethod
+		def m1():
+			pass
+		
+		class Demo(ABC)
+			
+		
+
+	exception handling
+	
+	raise 
+
+
+Django-->python -->MVT
+Django sw foundation
+
+2003
+
+adrian
+
+sqlite
+
+python
+
+
+py .\manage.py runserver
+
+http://127.0.0.1:8000/
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
