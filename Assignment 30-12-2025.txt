@@ -1,0 +1,305 @@
+ Basic SELECT
+Requirement: List ticker symbol and market cap for all stocks in the stock_fundamentals table.
+
+
+SELECT ticker_symbol, market_cap
+FROM endeavour.stock_fundamentals;
+
+
+Requirement: Get all stocks from the Technology sector (sector_id = 37) with market cap greater than $50B.
+
+
+
+SELECT ticker_symbol, market_cap
+FROM endeavour.stock_fundamentals
+WHERE sector_id = 37 AND market_cap > 50000000000;
+
+
+
+Requirement: Show the top 10 stocks by market cap.
+
+
+
+SELECT ticker_symbol, market_cap
+FROM endeavour.stock_fundamentals
+ORDER BY market_cap DESC
+LIMIT 10;
+
+
+
+Requirement: Show stocks ranked 11–20 by market cap.
+
+
+SELECT ticker_symbol, market_cap
+FROM endeavour.stock_fundamentals
+ORDER BY market_cap DESC
+OFFSET 10 LIMIT 10;
+
+
+Requirement: Find the average market cap for each sector.
+
+
+
+SELECT sector_id, ROUND(AVG(market_cap), 2) AS avg_market_cap
+FROM endeavour.stock_fundamentals
+GROUP BY sector_id
+ORDER BY avg_market_cap DESC;
+
+
+Requirement: Show sectors where the average market cap is greater than $100B.
+
+
+SELECT sector_id, AVG(market_cap) AS avg_market_cap
+FROM endeavour.stock_fundamentals
+GROUP BY sector_id
+HAVING AVG(market_cap) > 100000000000;
+
+
+Requirement: List ticker symbol, company name, and sector name for all stocks.
+
+
+SELECT s.ticker_symbol, s.ticker_name, sl.sector_name
+FROM endeavour.stocks_lookup s
+JOIN endeavour.stock_fundamentals f ON s.ticker_symbol = f.ticker_symbol
+JOIN endeavour.sector_lookup sl ON f.sector_id = sl.sector_id;
+
+
+Requirement: Get Apple’s price history for June 2024.
+
+
+
+SELECT trading_date, open_price, close_price
+FROM endeavour.stocks_price_history
+WHERE ticker_symbol = 'AAPL'
+  AND trading_date >= DATE '2024-06-01'
+  AND trading_date < DATE '2024-07-01';
+
+
+Requirement: Stocks ranked 11–20 by market_cap.
+
+
+
+SELECT ticker_symbol, market_cap
+FROM endeavour.stock_fundamentals
+ORDER BY market_cap DESC
+OFFSET 10 LIMIT 10;
+
+
+Requirement: List companies whose names end with Inc..
+
+
+SELECT ticker_symbol, ticker_name
+FROM endeavour.stocks_lookup
+WHERE ticker_name ILIKE '%Inc.';
+
+
+
+Requirement: Find stocks with current_ratio missing (NULL).
+
+
+
+SELECT ticker_symbol, sector_id, current_ratio
+FROM endeavour.stock_fundamentals
+WHERE current_ratio IS NULL
+ORDER BY ticker_symbol;
+
+
+Requirement: How many rows exist in stock_fundamentals?
+
+
+SELECT COUNT(*) AS total_rows
+FROM endeavour.stock_fundamentals;
+
+
+
+Requirement: Show Apple’s price row for 2024‑06‑21.
+
+
+SELECT *
+FROM endeavour.stocks_price_history
+WHERE ticker_symbol = 'AAPL'
+  AND trading_date = DATE '2024-06-21';
+
+
+
+Requirement: Apple’s price history for June 2024.
+
+
+
+SELECT trading_date, open_price, close_price, volume
+FROM endeavour.stocks_price_history
+WHERE ticker_symbol = 'AAPL'
+  AND trading_date >= DATE '2024-06-01'
+  AND trading_date <  DATE '2024-07-01'
+ORDER BY trading_date;
+
+
+
+Requirement: Average market_cap across all stocks (rounded to 2 decimals).
+
+
+SELECT ROUND(AVG(market_cap), 2) AS avg_market_cap
+FROM endeavour.stock_fundamentals;
+
+
+
+Requirement: Average market_cap per sector (show sector_name).
+
+
+SELECT sl.sector_name,
+       ROUND(AVG(sf.market_cap), 2) AS avg_market_cap
+FROM endeavour.stock_fundamentals sf
+JOIN endeavour.sector_lookup sl ON sl.sector_id = sf.sector_id
+GROUP BY sl.sector_name
+ORDER BY avg_market_cap DESC;
+
+
+Requirement: Sectors whose avg market cap > $100B.
+
+
+SELECT sl.sector_name,
+       AVG(sf.market_cap) AS avg_market_cap
+FROM endeavour.stock_fundamentals sf
+JOIN endeavour.sector_lookup sl ON sl.sector_id = sf.sector_id
+GROUP BY sl.sector_name
+HAVING AVG(sf.market_cap) > 100000000000
+ORDER BY avg_market_cap DESC;
+
+
+
+Requirement: Number of subsectors per sector from subsector_lookup.
+
+
+SELECT sl.sector_id,
+       COUNT(sl.subsector_id) AS subsector_count
+FROM endeavour.subsector_lookup sl
+GROUP BY sl.sector_id
+ORDER BY sl.sector_id;
+
+Requirement: Distinct subsectors present per sector in stock_fundamentals.
+
+
+SELECT sector_id,
+       COUNT(DISTINCT subsector_id) AS subsector_count
+FROM endeavour.stock_fundamentals
+GROUP BY sector_id
+ORDER BY sector_id;
+
+
+Requirement: Healthcare (sector_id = 34) stocks with current_ratio between 1.3 and 2.5, sorted by ticker desc.
+
+
+SELECT ticker_symbol, sector_id, subsector_id, market_cap, current_ratio
+FROM endeavour.stock_fundamentals
+WHERE sector_id = 34
+  AND current_ratio BETWEEN 1.3 AND 2.5
+ORDER BY ticker_symbol DESC;
+
+
+Requirement: For each year, how many unique tickers traded?
+
+
+
+
+SELECT EXTRACT(YEAR FROM trading_date) AS trading_year,
+       COUNT(DISTINCT ticker_symbol)   AS total_stocks_traded
+FROM endeavour.stocks_price_history
+GROUP BY EXTRACT(YEAR FROM trading_date)
+ORDER BY trading_year;
+
+
+Requirement: For 2022, average close_price for each ticker.
+
+
+SELECT ticker_symbol,
+       AVG(close_price) AS avg_close_price_2022
+FROM endeavour.stocks_price_history
+WHERE trading_date >= DATE '2022-01-01'
+  AND trading_date <  DATE '2023-01-01'
+GROUP BY ticker_symbol
+ORDER BY avg_close_price_2022 DESC;
+
+
+Requirement: For each ticker, how many trading days exist.
+
+
+SELECT ticker_symbol,
+       COUNT(trading_date) AS days_traded
+FROM endeavour.stocks_price_history
+GROUP BY ticker_symbol
+ORDER BY days_traded DESC, ticker_symbol;
+
+
+
+Requirement: List tickers and city/state where state = 'CA'.
+
+
+SELECT cl.ticker_symbol, cl.city, cl.state
+FROM endeavour.company_locations cl
+WHERE cl.state = 'CA'
+ORDER BY cl.ticker_symbol;
+
+
+Requirement: Ticker, ticker_name, sector_name, market_cap for the top 15 by market_cap.
+
+SELECT s.ticker_symbol, s.ticker_name, sl.sector_name, sf.market_cap
+FROM endeavour.stock_fundamentals sf
+JOIN endeavour.stocks_lookup   s  ON s.ticker_symbol = sf.ticker_symbol
+JOIN endeavour.sector_lookup   sl ON sl.sector_id    = sf.sector_id
+ORDER BY sf.market_cap DESC
+LIMIT 15;
+
+
+Requirement: Subsector names whose avg market cap > $25B.
+
+
+SELECT sub.subsector_name,
+       ROUND(AVG(sf.market_cap), 2) AS avg_mktcap
+FROM endeavour.stock_fundamentals sf
+JOIN endeavour.subsector_lookup sub ON sub.subsector_id = sf.subsector_id
+GROUP BY sub.subsector_name
+HAVING AVG(sf.market_cap) > 25000000000
+ORDER BY avg_mktcap DESC;
+
+Requirement: How many unique tickers traded between 2022‑01‑01 and 2024‑12‑31?
+
+
+SELECT COUNT(DISTINCT ticker_symbol) AS traded_ticker_count
+FROM endeavour.stocks_price_history
+WHERE trading_date >= DATE '2022-01-01'
+  AND trading_date <  DATE '2025-01-01';
+
+
+Requirement: Count trading days for AAPL in 2024 vs. expected 252 trading days (approx. US market).
+
+
+SELECT COUNT(*) AS aapl_days_2024
+FROM endeavour.stocks_price_history
+WHERE ticker_symbol = 'AAPL'
+  AND trading_date >= DATE '2024-01-01'
+  AND trading_date <  DATE '2025-01-01';
+-- Compare result to ~252 (not enforced in SQL)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
